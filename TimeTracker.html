@@ -1,0 +1,84 @@
+<html>
+<head>
+  <script type="text/javascript" src="jQuery.js"></script>
+  <title>Time Card Entry</title>
+  <style>
+    span {color:white; background-color:green; }
+    ul {list-style-type:none; }
+  </style>
+</head>
+
+<body>
+  <div id="leftPanel">
+     <form>
+       <div>
+         <input type="text" id="taskItem" />
+
+         <input type="button" id="button1" value="Submit"/>
+         
+         <input type="button" id="button2" value="Delete"/>
+		 <span></span>
+       </div>
+     </form>
+   
+
+  </div>
+  
+   
+
+  <div id="rightPanel">
+    <ul id="entries">
+    </ul>
+  </div>
+ 
+  <script>
+    
+    $(document).ready(function() {
+       if (!localStorage.mike) localStorage.mike = JSON.stringify([]);
+        var mike = JSON.parse(localStorage["mike"]);
+        for (var i=0; i < mike.length; i++) {
+          $("ul#entries").append("<li>"+mike[i]+"</li>").show();
+        }
+	  $("#taskItem").focus();
+    });   
+	
+	
+	$(document).keypress(function(e) {
+      if(e.keyCode == 13 && $("#taskItem").val() != "") {
+        alert('You pressed enter!');
+      }
+    });
+
+    $("#button1").click(function() {
+        var newEntry = $("input:first").val();
+        if (!localStorage.mike) localStorage.mike = JSON.stringify([]);
+        var mike = JSON.parse(localStorage["mike"]);
+        mike.push(newEntry);
+        localStorage["mike"] = JSON.stringify(mike);
+        $("ul#entries").empty();
+        for (var i=0; i < mike.length; i++) {
+          $("ul#entries").append("<li>"+mike[i]+"</li>").show();
+        }
+        $("input:first").val("");
+        $("span").text("Entry Saved").show().fadeOut(1500);
+		$("#taskItem").focus();
+        return false;
+    });
+
+    $("#button2").click(function() {
+        //event.preventDefault();
+        var mike = JSON.parse(localStorage["mike"]);
+        mike.pop();
+        localStorage["mike"] = JSON.stringify(mike);
+        $("ul#entries").empty();
+        for (var i=0; i < mike.length; i++) {
+          $("ul#entries").append("<li>"+mike[i]+"</li>").show();
+        }
+        $("span").text("Entry Deleted").show().fadeOut(1500);
+        $("#taskItem").focus();
+		return false;
+    });
+  </script>
+
+</body>
+</html>
