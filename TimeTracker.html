@@ -23,8 +23,6 @@
    
 
   </div>
-  
-   
 
   <div id="rightPanel">
     <ul id="entries">
@@ -42,15 +40,8 @@
 	  $("#taskItem").focus();
     });   
 	
-	
-	$(document).keypress(function(e) {
-      if(e.keyCode == 13 && $("#taskItem").val() != "") {
-        alert('You pressed enter!');
-      }
-    });
-
-    $("#button1").click(function() {
-        var newEntry = $("input:first").val();
+	function itemAdder() {
+	var newEntry = $("input:first").val();
         if (!localStorage.mike) localStorage.mike = JSON.stringify([]);
         var mike = JSON.parse(localStorage["mike"]);
         mike.push(newEntry);
@@ -63,6 +54,16 @@
         $("span").text("Entry Saved").show().fadeOut(1500);
 		$("#taskItem").focus();
         return false;
+	}
+	
+	$(document).keypress(function(e) {
+      if(e.keyCode == 13 && $("#taskItem").val() != "") {
+        itemAdder();
+      }
+    });
+		
+    $("#button1").click(function() {
+        itemAdder();
     });
 
     $("#button2").click(function() {
