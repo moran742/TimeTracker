@@ -1,1 +1,4 @@
 TimeTracker is a WebApp that is intended to run locally.  It utilizes local storage for quick,easy access to info while providing for quick loading and response.
+
+Usage:
+Download both the TimeTracker.html and jQuery.js files and save locally.  Open the TimeTracker.html file in your browser and you are ready to use.
